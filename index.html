@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Terms Of Services| Y</title>
+	<style>
+
+:root {
+  --bg-clr: skyblue;
+  --white: #fff;
+  --title-clr: #394168;
+  --pry-text-clr: #b3b3b3;
+  --scn-text-clr: #838384;
+  --btn-hvr-clr: #5363b0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  font-family: 'Roboto', sans-serif;
+}
+
+body{
+  background: var(--bg-clr);
+  font-size: 12px;
+  line-height: 20px;
+  color: var(--primary-text-clr);
+  padding: 0 20px;
+}
+
+.flex_center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tc_main{
+  margin: 20px 0;
+  width: 500px;
+  max-width: 100%;
+  height: 550px;
+  background: var(--white);
+  text-align: center;
+  border-radius: 3px;
+}
+
+.tc_main .title{
+  color: var(--title-clr);
+  margin-bottom: 5px;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.tc_main .tc_content .tc_bottom .title{
+  font-size: 18px;
+  line-height: 26px;
+}
+
+.tc_main .tc_content{
+  width: 100%;
+  margin: 35px 0;
+  height: calc(550px - 150px);
+}
+
+.tc_main .tc_btns{
+  width: 100%;
+  height: 80px;
+  padding: 21px 0;
+  box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
+}
+
+.tc_main .tc_content .tc_top{
+  margin: 0 35px 35px;
+}
+
+.tc_main .tc_content .tc_bottom{
+  padding: 0 35px;
+  overflow: auto;
+  height: calc(100% - 210px);
+}
+
+.tc_main .tc_content .tc_top .icon{
+  font-size: 42px;
+  text-align: center;
+  margin-bottom: 10px;
+  color: var(--title-clr);
+}
+
+.tc_main .tc_content .tc_top .info{
+  color: var(--scn-text-clr);
+}
+
+.tc_main .tc_content .tc_bottom .info p{
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.tc_main .tc_btns button{
+  width: 125px;
+  padding: 10px;
+  margin: 0 10px;
+  border: 0;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.5s ease;
+}
+
+.tc_main .tc_btns button.accept{
+  background: green;(--title-clr);
+  color: var(--white);
+}
+
+.tc_main .tc_btns button.decline{
+  border: 1px solid var(--title-clr);
+  background: red;
+  color: var(--title-clr);
+}
+
+.tc_main .tc_btns button.decline:hover{
+  background: yellow(--title-clr);
+  color: var(--white);
+}
+
+.tc_main .tc_btns button.accept:hover{
+  background: var(--btn-hvr-clr);
+		}	
+	</style>
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			const proceedBtn = document.getElementById("proceed_btn");
+			const exitBtn = document.getElementById("exit_btn");
+
+			// Navigate to another page when "Proceed" is clicked
+			proceedBtn.addEventListener("click", () => {
+				// Replace 'nextpage.html' with the actual page URL you want to navigate to
+				window.location.href = "indexi.html";
+			});
+
+			// Exit the page when "Exit" is clicked
+			exitBtn.addEventListener("click", () => {
+				// Close the tab or navigate to a different page
+				if (confirm("Are you sure you want to exit?")) {
+					window.close();
+				} else {
+					alert("Read the terms.");
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<section class="flex_center">
+		<div class="tc_main">
+			<div class="tc_content">
+				<div class="tc_top">
+					<div class="icon">
+						<i class="fa-solid fa-clipboard"></i>
+					</div>
+					<div class="title">
+						<p id="terms_title">Terms of Service</p>
+					</div>
+					<div class="info" id="terms_info">
+						Please review the terms and conditions carefully before proceeding. Failure to comply may result in consequences.
+                                THIS CERTIFICATE IS LICSENCED UNDER YOUNUS.NO ONE CAN COPY OR REPLACE IT &copy;. Certificates are awarded by schools,courses,officials and from quizes.
+					</div>
+				</div>
+				<div class="tc_bottom">
+					<div class="title">
+						<p>Please read through the terms before accepting them.</p>
+					</div>
+					<div class="info" id="terms_details">
+						<p>By proceeding, you agree to abide by the rules and policies outlined herein. Ensure you have read them thoroughly.</p>
+						<p>Your acceptance indicates compliance with all outlined terms and conditions.</p>
+						<p>For any concerns or clarifications, refer to our support team or documentation.</p>
+						<p>Keep a copy of the terms for your personal records.</p>
+						<p>These terms are subject to updates. Stay informed about changes.</p>
+						<p>We value your cooperation and adherence to these conditions.</p>
+					</div>
+				</div>
+			</div>
+			<div class="tc_btns">
+				<button class="accept" id="proceed_btn">
+					Proceed
+				</button>
+				<button class="decline" id="exit_btn">
+					Exit
+				</button>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
+
