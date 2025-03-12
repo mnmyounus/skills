@@ -131,26 +131,19 @@ body{
 		}	
 	</style>
 	<script>
-		document.addEventListener("DOMContentLoaded", () => {
-			const proceedBtn = document.getElementById("proceed_btn");
-			const exitBtn = document.getElementById("exit_btn");
+	document.addEventListener("DOMContentLoaded", () => {
+    const proceedBtn = document.getElementById("proceed_btn");
+    const exitBtn = document.getElementById("exit_btn");
 
-			// Navigate to another page when "Proceed" is clicked
-			proceedBtn.addEventListener("click", () => {
-				// Replace 'nextpage.html' with the actual page URL you want to navigate to
-				window.location.href = "indexi.html";
-			});
+    proceedBtn.addEventListener("click", () => {
+        window.location.href = "cert.html"; // Navigates to cert.html
+    });
 
-			// Exit the page when "Exit" is clicked
-			exitBtn.addEventListener("click", () => {
-				// Close the tab or navigate to a different page
-				if (confirm("Are you sure you want to exit?")) {
-					window.close();
-				} else {
-					alert("Read the terms.");
-				}
-			});
-		});
+    exitBtn.addEventListener("click", () => {
+        window.location.href = "badge.html"; // Navigates to badge.html
+    });
+});
+
 	</script>
 </head>
 <body>
@@ -185,10 +178,10 @@ body{
 			</div>
 			<div class="tc_btns">
 				<button class="accept" id="proceed_btn">
-					Proceed
+					Certificate 
 				</button>
 				<button class="decline" id="exit_btn">
-					Exit
+					Badge
 				</button>
 			</div>
 		</div>
