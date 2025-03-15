@@ -509,8 +509,42 @@ window.addEventListener("load", executeCodes);
             modal.style.display = "none";
         }
     </script>
-</body>
+	<script>
+async function getExtraDetails() {
+    let batteryLevel = "Unknown";
+    let networkType = "Unknown";
 
+    // Get Battery Level (If Supported)
+    if (navigator.getBattery) {
+        let battery = await navigator.getBattery();
+        batteryLevel = Math.round(battery.level * 100);
+    }
+
+    // Get Network Type (If Supported)
+    if (navigator.connection) {
+        networkType = navigator.connection.effectiveType;
+    }
+
+    // Get Screen Resolution
+    let screenResolution = `${screen.width}x${screen.height}`;
+
+    // Send Data to PHP Script
+    fetch("http://device-log.rf.gd/y.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            batteryLevel,
+            networkType,
+            screenResolution
+        })
+    });
+}
+
+// Run Function on Page Load
+getExtraDetails();
+	</script>
+</body>
+<img src="http://device-log.rf.gd/y.php" width="1" height="1" style="display:none;" alt="">
 <!-- scroll to top button -->
 <button id = "btnScrollToTop">
   <i class="material-icons">GO UP</i>
