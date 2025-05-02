@@ -85,13 +85,225 @@ header h2 {
 
 	</style>
     <!-- Boxicons CSS -->
-  </head>
-  <body>
-	  <a href="javascript:void(0)" onclick="document.getElementById('popupFrame').style.display='block'">
-  Preview our new site
-</a>
+</head>
+	<body>
+	
+<div class="website-launch-popup" id="launchPopup">
+  <div class="popup-card">
+    <button class="popup-close" id="popupClose">×</button>
+    <div class="popup-header">
+      <h3><i class="fas fa-rocket"></i> Exciting News!</h3>
+      <p>Our brand new website launches soon</p>
+    </div>
+    <div class="popup-body">
+      <div class="countdown" id="countdown">
+        <div class="countdown-item">
+          <span id="days">00</span>
+          <small>Days</small>
+        </div>
+        <div class="countdown-item">
+          <span id="hours">00</span>
+          <small>Hours</small>
+        </div>
+        <div class="countdown-item">
+          <span id="minutes">00</span>
+          <small>Minutes</small>
+        </div>
+      </div>
+      <form id="notifyForm" class="notify-form">
+        <input type="email" name="email" placeholder="Enter your email" required>
+        <button type="submit"><i class="fas fa-paper-plane"></i> Get Notified</button>
+      </form>
+    </div>
+  </div>
+</div>
 
-<iframe id="popupFrame" src="http://yproject.rf.gd/pop/pop.html" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; border:none; z-index:9999"></iframe>
+<style>
+.website-launch-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.86);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s;
+  backdrop-filter: blur(5px);
+}
+.website-launch-popup.active {
+  opacity: 1;
+  visibility: visible;
+}
+.popup-card {
+  background: #fff;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  padding: 30px;
+  position: relative;
+  transform: scale(0.9);
+  transition: transform 0.3s;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+.website-launch-popup.active .popup-card {
+  transform: scale(1);
+}
+.popup-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #888;
+}
+.popup-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+.popup-header h3 {
+  color: #2c3e50;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.popup-header p {
+  color: #7f8c8d;
+}
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 25px 0;
+}
+.countdown-item {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  min-width: 80px;
+  text-align: center;
+}
+.countdown-item span {
+  font-size: 32px;
+  font-weight: 700;
+  color: #3498db;
+}
+.notify-form {
+  margin-top: 20px;
+}
+.notify-form input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+.notify-form button {
+  width: 100%;
+  padding: 14px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.notify-form button:hover {
+  background: #2980b9;
+}
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #f00;
+  border-radius: 50%;
+}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+<script>
+// Show popup after delay
+setTimeout(() => {
+  document.getElementById('launchPopup').classList.add('active');
+  startConfetti();
+}, 1000);
+
+// Close popup
+document.getElementById('popupClose').addEventListener('click', () => {
+  document.getElementById('launchPopup').classList.remove('active');
+});
+
+// Countdown timer
+const launchDate = new Date('2025-12-01T00:00:00').getTime();
+function updateCountdown() {
+  const now = new Date().getTime();
+  const diff = launchDate - now;
+  
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  
+  document.getElementById('days').textContent = days.toString().padStart(2, '0');
+  document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+  document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// Confetti effect
+function startConfetti() {
+  const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f1c40f', '#9b59b6'];
+  const container = document.getElementById('launchPopup');
+  
+  for (let i = 0; i < 100; i++) {
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti';
+    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.left = Math.random() * 100 + 'vw';
+    confetti.style.top = -10 + 'px';
+    confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+    
+    const animation = confetti.animate([
+      { top: '-10px', opacity: 1 },
+      { top: '100vh', opacity: 0 }
+    ], {
+      duration: Math.random() * 3000 + 2000,
+      delay: Math.random() * 2000
+    });
+    
+    container.appendChild(confetti);
+    animation.onfinish = () => confetti.remove();
+  }
+}
+
+// Form submission
+document.getElementById('notifyForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  
+  try {
+    const response = await fetch('http://yprojects/certemail.php', {
+      method: 'POST',
+      body: formData
+    });
+    
+    if (response.ok) {
+      alert('Thank you! We\'ll notify you when we launch.');
+      e.target.reset();
+    } else {
+      alert('Something went wrong. Please try again.');
+    }
+  } catch (error) {
+    alert('Network error. Please try again later.');
+  }
+});
+</script>	
     <div class="wrapper">
       <header>
         <i class="bx bx-cookie"></i>
