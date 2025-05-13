@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Secure Access</title>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding-top: 50px; }
+  </style>
+</head>
+<body>
+  <h2>Login to Access Certificates</h2>
+  <button onclick="signIn()">Sign in with Google</button>
+
+  <script>
+    // Replace with your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyD_NKHxGJIWnC3TqEEoC7k2mkCi39DYomw",
+      authDomain: "y-certificate.firebaseapp.com",
+      projectId: "y-certificate",
+      appId: "1:840147925227:web:e5c098604656eb335fe6ae",
+measurementId: "G-NN70GW3GHX"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    auth.setPersistence(firebase.auth.Auth.Persistence.NONE);
+
+    const allowedEmail = "mnmyounus@gmail.com"; // Replace with your real email
+
+    function signIn() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider).then(result => {
+        if (result.user.email === allowedEmail) {
+          sessionStorage.setItem("auth", "granted");
+          window.location.href = "inde/";
+        } else {
+          alert("Access denied.");
+          auth.signOut();
+        }
+      }).catch(error => alert("Error: " + error.message));
+    }
+  </script>
+</body>
+</html>
