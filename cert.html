@@ -2,12 +2,20 @@
 <html lang="en">
 <head>
 	<script>
-  // Redirect to login if not logged in
+  // Check if user is logged in
   if (localStorage.getItem("isLoggedIn") !== "true") {
     alert("Access denied. Please log in.");
     window.location.href = "indexi.html";
   }
+
+  // Auto logout after 60 seconds (1 minute)
+  setTimeout(() => {
+    alert("Session expired. Logging out.");
+    localStorage.removeItem("isLoggedIn");
+    window.location.href = "indexi.html";
+  }, 60000); // 60000 milliseconds = 1 minute
 	</script>
+	
 	
 	<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NN70GW3GHX"></script>
