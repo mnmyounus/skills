@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<script>
+  // Redirect to login if not logged in
+  if (localStorage.getItem("isLoggedIn") !== "true") {
+    alert("Access denied. Please log in.");
+    window.location.href = "indexi.html";
+  }
+	</script>
+	
 	<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NN70GW3GHX"></script>
 <script>
