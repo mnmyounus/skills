@@ -107,7 +107,7 @@ header h2 {
   background-color: #034bf1;
 }
 #declineBtn {
-  border: 2px solid #4070f4;
+  border: 2px olid #4070f4;
   background-color: #fff;
   color: #4070f4;
 }
@@ -143,8 +143,9 @@ header h2 {
           <small>Minutes</small>
         </div>
       </div>
-      <form id="notifyForm" class="notify-form">
+      <form id="notifyForm" class="notify-form" method="POST">
         <input type="email" name="email" placeholder="Enter your email" required>
+        <input type="hidden" name="_captcha" value="false">
         <button type="submit"><i class="fas fa-paper-plane"></i> Get Notified</button>
       </form>
     </div>
@@ -152,6 +153,7 @@ header h2 {
 </div>
 
 <style>
+/* your existing CSS unchanged */
 .website-launch-popup {
   position: fixed;
   top: 0;
@@ -315,28 +317,33 @@ function startConfetti() {
   }
 }
 
-// Form submission
+// Submit form using fetch to FormSubmit.co
 document.getElementById('notifyForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const formData = new FormData(e.target);
-  
+  const form = e.target;
+  const formData = new FormData(form);
+
   try {
-    const response = await fetch('https://yemail.rf.gd/email.cert.php', {
+    const response = await fetch('https://formsubmit.co/ajax/2163636e873630438f0c61fc16ba2076', {
       method: 'POST',
+      headers: {
+        'Accept': 'application/json'
+      },
       body: formData
     });
-    
+
     if (response.ok) {
-      alert('Thank you! We\'ll notify you when we launch.');
-      e.target.reset();
+      alert("Thank you! We'll notify you when we launch.");
+      form.reset();
     } else {
-      alert('Something went wrong. Please try again.');
+      alert("Oops! Something went wrong. Please try again.");
     }
   } catch (error) {
-    alert('Network error. Please try again later.');
+    alert("Network error. Please try again later.");
   }
 });
-</script>	
+</script>
+
     <div class="wrapper">
       <header>
         <i class="bx bx-cookie"></i>
