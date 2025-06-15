@@ -4,16 +4,8 @@
 	<script
   src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback"
   defer
-></script>
-	window.onloadTurnstileCallback = function () {
-  turnstile.render("#example-container", {
-    sitekey: "0x4AAAAAABg8vNlHPjjAYx0f",
-    callback: function (token) {
-      console.log(`Challenge Success ${token}`);
-    },
-  });
-};
-	<script>
+>
+
   // Check if user is logged in
   if (localStorage.getItem("isLoggedIn") !== "true") {
     alert("Access denied. Please log in.");
