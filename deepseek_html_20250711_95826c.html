@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Badge Collection | Younus</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4070f4;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --dark-color: #343a40;
+            --light-color: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            color: white;
+            position: relative;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .badge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .badge-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        
+        .badge-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .badge-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .badge-info {
+            padding: 15px;
+        }
+        
+        .badge-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .badge-id {
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .badge-actions {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #305fd3;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 0.8rem;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 80%;
+            max-height: 80%;
+            animation: zoom 0.3s;
+        }
+        
+        @keyframes zoom {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+        
+        .modal-info {
+            color: white;
+            text-align: center;
+            padding: 20px;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+        
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: #bbb;
+        }
+        
+        .social-share {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-icon {
+            color: white;
+            font-size: 24px;
+            transition: transform 0.3s;
+        }
+        
+        .social-icon:hover {
+            transform: scale(1.2);
+        }
+        
+        #btnScrollToTop {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(64, 112, 244, 0.8);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #btnScrollToTop:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        footer {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .cookie-consent {
+            position: fixed;
+            bottom: 20px;
+            right: -370px;
+            max-width: 350px;
+            width: 100%;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: right 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .cookie-consent.show {
+            right: 20px;
+        }
+        
+        .cookie-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .cookie-header i {
+            color: var(--primary-color);
+            font-size: 28px;
+            margin-right: 10px;
+        }
+        
+        .cookie-header h2 {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        .cookie-text {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .cookie-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        
+        .filter-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .search-box {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .search-box input {
+            padding: 10px 15px;
+            border-radius: 25px;
+            border: none;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .badge-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .filter-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .modal-content {
+                max-width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cookie Consent Banner -->
+    <div class="cookie-consent">
+        <div class="cookie-header">
+            <i class="fas fa-cookie-bite"></i>
+            <h2>Badge Usage Policy</h2>
+        </div>
+        <div class="cookie-text">
+            <p>These badges are licensed under Younus. Unauthorized copying or reproduction is prohibited. <a href="#" style="color: var(--primary-color);">Learn more</a></p>
+        </div>
+        <div class="cookie-buttons">
+            <button class="btn btn-primary" id="acceptBtn">Accept</button>
+            <button class="btn btn-secondary" id="declineBtn">Decline</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Professional Badge Collection</h1>
+            <p>Verified digital credentials showcasing skills and achievements</p>
+        </header>
+        
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search badges by title or ID...">
+        </div>
+        
+        <div class="filter-controls">
+            <button class="btn btn-primary filter-btn" data-filter="all">All Badges</button>
+            <button class="btn btn-secondary filter-btn" data-filter="design">Design</button>
+            <button class="btn btn-secondary filter-btn" data-filter="development">Development</button>
+            <button class="btn btn-secondary filter-btn" data-filter="leadership">Leadership</button>
+        </div>
+        
+        <div class="badge-grid" id="badgeContainer">
+            <!-- Badges will be dynamically inserted here -->
+        </div>
+    </div>
+    
+    <!-- Badge Modal -->
+    <div id="badgeModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div class="modal-info">
+            <h2 id="modalTitle"></h2>
+            <p id="modalId"></p>
+            <div class="social-share">
+                <a href="#" class="social-icon" id="shareFacebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="social-icon" id="shareTwitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon" id="shareLinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-icon" id="shareWhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <div style="margin-top: 20px;">
+                <button class="btn btn-success" id="verifyBtn">Verify Badge</button>
+                <button class="btn btn-danger" id="reportBtn">Report Issue</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scroll to Top Button -->
+    <button id="btnScrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <footer>
+        <p>&copy; 2025 Younus. All rights reserved. Licensed content.</p>
+    </footer>
+
+    <script>
+        // Badge data with unique IDs and categories
+        const badges = [
+            { id: 'BDG-2025-001', title: 'UI/UX Design Mastery', image: 'b1.jpg', category: 'design', verified: true },
+            { id: 'BDG-2025-002', title: 'Frontend Development', image: 'b2.jpg', category: 'development', verified: true },
+            { id: 'BDG-2025-003', title: 'Team Leadership', image: 'b3.jpg', category: 'leadership', verified: true },
+            { id: 'BDG-2025-004', title: 'Graphic Design Expert', image: 'b4.jpg', category: 'design', verified: false },
+            { id: 'BDG-2025-005', title: 'Backend Development', image: 'b5.jpg', category: 'development', verified: true },
+            { id: 'BDG-2025-006', title: 'Project Management', image: 'b6.jpg', category: 'leadership', verified: false },
+            { id: 'BDG-2025-007', title: 'Mobile App Design', image: 'b7.jpg', category: 'design', verified: true },
+            { id: 'BDG-2025-008', title: 'Full Stack Developer', image: 'b8.jpg', category: 'development', verified: true },
+            { id: 'BDG-2025-009', title: 'Creative Direction', image: 'b09.jpg', category: 'design', verified: false },
+            { id: 'BDG-2025-010', title: 'DevOps Engineering', image: 'b10.jpg', category: 'development', verified: true },
+            { id: 'BDG-2025-011', title: 'Technical Writing', image: 'b11.jpg', category: 'leadership', verified: false },
+            { id: 'BDG-2025-012', title: 'Brand Identity', image: 'b12.jpg', category: 'design', verified: true },
+            { id: 'BDG-2025-013', title: 'Cloud Architecture', image: 'b13.jpg', category: 'development', verified: true },
+            { id: 'BDG-2025-014', title: 'Public Speaking', image: 'b14.jpg', category: 'leadership', verified: false }
+        ];
+
+        // Generate unique URL for each badge
+        badges.forEach(badge => {
+            badge.url = `https://mnmyounus.github.io/skills/badge?id=${badge.id}`;
+        });
+
+        // DOM elements
+        const badgeContainer = document.getElementById('badgeContainer');
+        const searchInput = document.getElementById('searchInput');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const modal = document.getElementById('badgeModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalId = document.getElementById('modalId');
+        const verifyBtn = document.getElementById('verifyBtn');
+        const reportBtn = document.getElementById('reportBtn');
+        const shareFacebook = document.getElementById('shareFacebook');
+        const shareTwitter = document.getElementById('shareTwitter');
+        const shareLinkedIn = document.getElementById('shareLinkedIn');
+        const shareWhatsApp = document.getElementById('shareWhatsApp');
+        const cookieConsent = document.querySelector('.cookie-consent');
+        const acceptBtn = document.getElementById('acceptBtn');
+        const declineBtn = document.getElementById('declineBtn');
+        const scrollToTopBtn = document.getElementById('btnScrollToTop');
+
+        // Current selected badge
+        let currentBadge = null;
+
+        // Display all badges
+        function displayBadges(badgesToShow = badges) {
+            badgeContainer.innerHTML = '';
+            
+            badgesToShow.forEach(badge => {
+                const badgeCard = document.createElement('div');
+                badgeCard.className = `badge-card ${badge.category}`;
+                badgeCard.dataset.category = badge.category;
+                
+                badgeCard.innerHTML = `
+                    <img src="${badge.image}" alt="${badge.title}" class="badge-image">
+                    <div class="badge-info">
+                        <h3 class="badge-title">${badge.title}</h3>
+                        <span class="badge-id">ID: ${badge.id}</span>
+                        <div class="badge-actions">
+                            <button class="btn btn-primary btn-sm view-btn" data-id="${badge.id}">View</button>
+                            <button class="btn btn-success btn-sm verify-btn" data-id="${badge.id}">Verify</button>
+                            <button class="btn btn-secondary btn-sm share-btn" data-id="${badge.id}">Share</button>
+                        </div>
+                    </div>
+                `;
+                
+                badgeContainer.appendChild(badgeCard);
+            });
+            
+            // Add event listeners to the new buttons
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', () => openModal(btn.dataset.id));
+            });
+            
+            document.querySelectorAll('.verify-btn').forEach(btn => {
+                btn.addEventListener('click', () => verifyBadge(btn.dataset.id));
+            });
+            
+            document.querySelectorAll('.share-btn').forEach(btn => {
+                btn.addEventListener('click', () => shareBadge(btn.dataset.id));
+            });
+        }
+
+        // Open modal with badge details
+        function openModal(badgeId) {
+            currentBadge = badges.find(b => b.id === badgeId);
+            if (!currentBadge) return;
+            
+            modalImage.src = currentBadge.image;
+            modalTitle.textContent = currentBadge.title;
+            modalId.textContent = `ID: ${currentBadge.id} | ${currentBadge.verified ? '✓ Verified' : 'Unverified'}`;
+            
+            // Set up share URLs
+            const shareUrl = encodeURIComponent(currentBadge.url);
+            const shareText = encodeURIComponent(`Check out my ${currentBadge.title} badge!`);
+            
+            shareFacebook.href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
+            shareTwitter.href = `https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareText}`;
+            shareLinkedIn.href = `https://www.linkedin.com/shareArticle?mini=true&url=${shareUrl}&title=${currentBadge.title}&summary=${shareText}`;
+            shareWhatsApp.href = `https://wa.me/?text=${shareText}%20${shareUrl}`;
+            
+            modal.style.display = 'block';
+        }
+
+        // Close modal
+        function closeModal() {
+            modal.style.display = 'none';
+            currentBadge = null;
+        }
+
+        // Verify badge
+        function verifyBadge(badgeId) {
+            const badge = badges.find(b => b.id === badgeId);
+            if (!badge) return;
+            
+            window.open(`https://mnmyounus.github.io/skills/verify?id=${badgeId}`, '_blank');
+        }
+
+        // Share badge
+        function shareBadge(badgeId) {
+            const badge = badges.find(b => b.id === badgeId);
+            if (!badge) return;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: badge.title,
+                    text: 'Check out my professional badge!',
+                    url: badge.url
+                }).catch(err => {
+                    console.log('Error sharing:', err);
+                    openModal(badgeId);
+                });
+            } else {
+                openModal(badgeId);
+            }
+        }
+
+        // Filter badges by category
+        function filterBadges(category) {
+            if (category === 'all') {
+                displayBadges();
+                return;
+            }
+            
+            const filteredBadges = badges.filter(badge => badge.category === category);
+            displayBadges(filteredBadges);
+        }
+
+        // Search badges
+        function searchBadges() {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            if (!searchTerm) {
+                displayBadges();
+                return;
+            }
+            
+            const filteredBadges = badges.filter(badge => 
+                badge.title.toLowerCase().includes(searchTerm) || 
+                badge.id.toLowerCase().includes(searchTerm)
+            );
+            
+            displayBadges(filteredBadges);
+        }
+
+        // Cookie consent functions
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        }
+
+        function getCookie(name) {
+            const cookieName = name + "=";
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const cookieArray = decodedCookie.split(';');
+            
+            for (let i = 0; i < cookieArray.length; i++) {
+                let cookie = cookieArray[i];
+                while (cookie.charAt(0) === ' ') {
+                    cookie = cookie.substring(1);
+                }
+                if (cookie.indexOf(cookieName) === 0) {
+                    return cookie.substring(cookieName.length, cookie.length);
+                }
+            }
+            return "";
+        }
+
+        function checkCookieConsent() {
+            const cookie = getCookie("badgeConsent");
+            if (cookie !== "accepted") {
+                setTimeout(() => {
+                    cookieConsent.classList.add('show');
+                }, 2000);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            displayBadges();
+            checkCookieConsent();
+            
+            // Filter buttons
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('btn-primary'));
+                    button.classList.add('btn-primary');
+                    filterBadges(button.dataset.filter);
+                });
+            });
+            
+            // Search input
+            searchInput.addEventListener('input', searchBadges);
+            
+            // Modal close
+            document.querySelector('.close').addEventListener('click', closeModal);
+            
+            // Modal verify button
+            verifyBtn.addEventListener('click', () => {
+                if (currentBadge) {
+                    verifyBadge(currentBadge.id);
+                }
+            });
+            
+            // Modal report button
+            reportBtn.addEventListener('click', () => {
+                window.open('https://mnmyounus.github.io/skills/report', '_blank');
+            });
+            
+            // Cookie consent
+            acceptBtn.addEventListener('click', () => {
+                setCookie("badgeConsent", "accepted", 30);
+                cookieConsent.classList.remove('show');
+            });
+            
+            declineBtn.addEventListener('click', () => {
+                cookieConsent.classList.remove('show');
+            });
+            
+            // Scroll to top
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Show scroll to top button when scrolling
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.style.display = 'flex';
+                } else {
+                    scrollToTopBtn.style.display = 'none';
+                }
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+        });
+
+        // Security measures
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'PrintScreen' || 
+                (e.ctrlKey && e.key === 's') || 
+                (e.ctrlKey && e.key === 'p')) {
+                e.preventDefault();
+                alert('This action is restricted to protect content.');
+            }
+        });
+
+        // Prevent iframe embedding
+        if (window.top !== window.self) {
+            document.body.innerHTML = '<h1 style="color: red; text-align: center; margin-top: 50px;">Access Denied: This content cannot be embedded.</h1>';
+            throw new Error("Embedding protection: iframe access denied");
+        }
+    </script>
+</body>
+</html>
