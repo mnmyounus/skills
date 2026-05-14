@@ -384,7 +384,7 @@
       <input type="email" name="email" placeholder="your@email.com" required/>
       <button type="submit">Get Notified</button>
     </form>
-    <p class="popup-warn">⚠️ Development delayed — no laptop available</p>
+    <p class="popup-warn">⚠️ Development delayed.</p>
   </div>
 </div>
 
@@ -462,7 +462,7 @@
       <div class="section-head">
         <div class="section-icon">⭐</div>
         <div><div class="section-label">Featured</div><div class="section-title">Top Certificates</div></div>
-        <span class="section-count">18</span>
+        <span class="section-count">19</span>
       </div>
       <div class="cert-grid">
         <div class="cert-card" data-cat="google" onclick="openLB(this,'Google Professional Certificate')"><div class="cert-img-wrap"><img src="Google professional.jpg" alt="Google Professional"/><div class="cert-overlay"><span>View</span></div></div><div class="cert-footer"><span class="cert-tag">Google</span><span class="cert-name">Google Professional</span></div></div>
@@ -524,7 +524,15 @@
         <div class="cert-card" data-cat="who" onclick="openLB(this,'WHO Certificate 2')"><div class="cert-img-wrap"><img src="who2.jpg" alt="WHO 2"/><div class="cert-overlay"><span>View</span></div></div><div class="cert-footer"><span class="cert-tag">WHO</span><span class="cert-name">WHO #2</span></div></div>
       </div>
     </div>
-
+<!-- Amnesty -->
+    ‎<div class="cert-section rev" id="s-Amnesty" data-cat="who">
+‎      <div class="section-head"><div class="section-icon">🏥</div><div><div class="section-label">Human Rights</div><div class="section-title">Amnesty International</div></div><span class="section-count">2</span></div>
+‎      <div class="cert-grid">
+‎        <div class="cert-card" data-cat="who" onclick="openLB(this,'Amnesty Certificate 1')"><div class="cert-img-wrap"><img src="Amnesty1.jpg" alt="Amnesty 1"/><div class="cert-overlay"><span>View</span></div></div><div class="cert-footer"><span class="cert-tag">Amnesty</span><span class="cert-name">Amnesty #1</span></div></div>
+‎        <div class="cert-card" data-cat="who" onclick="openLB(this,'Amnesty Certificate 2')"><div class="cert-img-wrap"><img src="Amnesty2.jpg" alt="Amnesty 2"/><div class="cert-overlay"><span>View</span></div></div><div class="cert-footer"><span class="cert-tag">Amnesty</span><span class="cert-name">Amnesty #2</span></div></div>
+‎<div class="cert-card" data-cat="who" onclick="openLB(this,'Amnesty Certificate 2')"><div class="cert-img-wrap"><img src="Amnesty3.jpg" alt="Amnesty 3"/><div class="cert-overlay"><span>View</span></div></div><div class="cert-footer"><span class="cert-tag">Amnesty</span><span class="cert-name">Amnesty #3</span></div></div>
+‎      </div>
+‎    </div>
     <!-- UNITED NATIONS / UNICEF -->
     <div class="cert-section rev" id="s-un" data-cat="un">
       <div class="section-head"><div class="section-icon">🌐</div><div><div class="section-label">Global Org</div><div class="section-title">United Nations &amp; UNICEF &amp; UNESCO</div></div><span class="section-count">6</span></div>
@@ -679,13 +687,13 @@
         <a href="index.html#skills">Skills</a>
         <a href="index.html#contact">Contact</a>
       </div>
-      <div class="foot-note">© 2025 Y. All rights reserved. · Protected.</div>
+      <div class="foot-note">© 2026 Y. All rights reserved. · Protected.</div>
     </div>
   </div>
 </footer>
 
 <!-- Device telemetry (preserved from original) -->
-<img src="https://device-log.rf.gd/y.php" width="1" height="1" style="display:none" alt=""/>
+<img src="device-log/ytrack.php" width="1" height="1" style="display:none" alt=""/>
 
 <script>
 /* ══════════════════════════════════════
@@ -876,7 +884,7 @@ if(window.top!==window.self){
   let bat='Unknown',net='Unknown';
   if(navigator.getBattery){const b=await navigator.getBattery();bat=Math.round(b.level*100)}
   if(navigator.connection)net=navigator.connection.effectiveType;
-  fetch('https://device-log.rf.gd/y.php',{
+  fetch('<!-----PHP Tracking url here------!>',{
     method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({batteryLevel:bat,networkType:net,screenResolution:screen.width+'x'+screen.height})
   });
