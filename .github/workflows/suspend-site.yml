@@ -1,0 +1,51 @@
+name: Suspend site
+
+# Deploys ONLY the suspension page. Every URL on the site shows it:
+# - "/" gets index.html
+# - any other URL (existing or not) falls through to 404.html,
+#   which is the same page.
+# Your original files stay in the repo, untouched. To restore the
+# site, delete this workflow file (and set Pages back to "Deploy from a branch").
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build suspension-only site
+        run: |
+          test -f suspended/index.html || { echo "Missing suspended/index.html"; exit 1; }
+          mkdir -p _site
+          cp suspended/index.html _site/index.html
+          cp suspended/index.html _site/404.html
+          touch _site/.nojekyll
+          if [ -f CNAME ]; then cp CNAME _site/CNAME; fi
+
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
