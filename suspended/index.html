@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Suspended | MNM YOUNUS</title>
+  <meta name="description" content="This website has been suspended by MNM YOUNUS due to studies until January 2027.">
+
+  <!-- Apply saved/system theme before paint (prevents a flash) -->
+  <script>
+    (function () {
+      var t;
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (t !== "light" && t !== "dark") {
+        t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+
+  <style>
+    /* ---------- Theme tokens: edit colours and fonts here ---------- */
+    :root {
+      --bg: #eceef6;
+      --bg2: #dde1f0;
+      --text: #15172b;
+      --muted: #5b5e7a;
+      --line: rgba(21, 23, 43, 0.14);
+      --card: rgba(255, 255, 255, 0.62);
+      --accent: #8a5a10;
+      --glow: rgba(224, 160, 60, 0.5);
+      --ray: rgba(170, 110, 20, 0.28);
+      --rim: rgba(138, 90, 16, 0.55);
+      --star: rgba(40, 44, 90, 0.5);
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+      --sans: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+    :root[data-theme="dark"] {
+      --bg: #080a16;
+      --bg2: #141833;
+      --text: #ebe9f5;
+      --muted: #9c9ab6;
+      --line: rgba(255, 255, 255, 0.12);
+      --card: rgba(255, 255, 255, 0.05);
+      --accent: #ebbd72;
+      --glow: rgba(235, 189, 114, 0.45);
+      --ray: rgba(235, 189, 114, 0.3);
+      --rim: rgba(235, 189, 114, 0.7);
+      --star: rgba(255, 255, 255, 0.85);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; }
+    html { background: var(--bg); }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      background: radial-gradient(ellipse at 50% 0%, var(--bg2) 0%, var(--bg) 70%) fixed;
+      padding: env(safe-area-inset-top, 0) 0 env(safe-area-inset-bottom, 0);
+      transition: color 0.4s;
+    }
+
+    #stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    header, main, footer { position: relative; z-index: 1; }
+
+    /* ---------- header ---------- */
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; max-width: 960px; margin: 0 auto; padding: 22px 24px;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 600; letter-spacing: 0.08em; font-size: 0.95rem; }
+    .mark {
+      display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+      border: 1px solid var(--rim); color: var(--accent);
+      font-family: var(--serif); font-size: 1.1rem; font-style: italic;
+    }
+    .icon-btn {
+      display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid var(--line); background: var(--card); color: var(--text); cursor: pointer;
+    }
+    .icon-btn svg { width: 18px; height: 18px; }
+
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    /* ---------- main ---------- */
+    main {
+      flex: 1; width: 100%; max-width: 640px; margin: 0 auto;
+      padding: 8px 24px 48px; text-align: center;
+    }
+
+    /* eclipse */
+    .stage { position: relative; width: min(60vw, 240px); aspect-ratio: 1; margin: 36px auto 40px; }
+    .corona {
+      position: absolute; inset: -42%; border-radius: 50%;
+      background: radial-gradient(circle, var(--glow) 0%, transparent 60%);
+      animation: rise 2.2s ease-out both, breathe 8s ease-in-out 2.2s infinite;
+    }
+    .corona::after {
+      content: ""; position: absolute; inset: 14%; border-radius: 50%; opacity: 0.55;
+      background: repeating-conic-gradient(var(--ray) 0 1.6deg, transparent 1.6deg 8deg);
+      -webkit-mask: radial-gradient(circle, transparent 36%, #000 50%, transparent 68%);
+      mask: radial-gradient(circle, transparent 36%, #000 50%, transparent 68%);
+      animation: spin 120s linear infinite;
+    }
+    .ring { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+    .ring circle { fill: none; stroke-width: 1.4; }
+    .ring-bg { stroke: var(--line); }
+    .ring-fg { stroke: var(--accent); stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset 1.8s ease; }
+    /* --rev runs 0 to 1 from the start date to the return date (set by the script).
+       The moon slides off the sun a little more every day; on return day the sun is fully visible. */
+    .sun {
+      position: absolute; inset: 13%; border-radius: 50%;
+      background: radial-gradient(circle at 42% 36%, #fff6d6 0%, #ffd070 42%, #f09a3c 100%);
+      box-shadow: 0 0 calc(30px + var(--rev, 0) * 60px) calc(var(--rev, 0) * 14px) var(--glow);
+    }
+    .moon {
+      position: absolute; inset: 13%; border-radius: 50%;
+      background: radial-gradient(circle at 70% 26%, #262b4d 0%, #090a16 62%);
+      box-shadow: 0 0 0 1px var(--rim), 0 0 38px 4px var(--glow);
+      transform: translate(calc(var(--px, 0) * 9px + var(--rev, 0) * 105%), calc(var(--py, 0) * 9px - var(--rev, 0) * 22%));
+      opacity: calc(1 - max(0, (var(--rev, 0) - 0.82) * 5.5));
+      transition: transform 0.25s ease-out;
+    }
+
+    h1 {
+      margin: 0 0 18px; font-family: var(--serif); font-weight: 500;
+      font-size: clamp(2.2rem, 7.5vw, 3.5rem); line-height: 1.1; letter-spacing: -0.01em;
+    }
+    .lead { margin: 0 auto 10px; max-width: 46ch; font-size: 1.15rem; }
+    .note { margin: 0 auto; max-width: 46ch; color: var(--muted); }
+    .whisper {
+      min-height: 1.7em; margin: 22px 0 0; font-family: var(--serif); font-style: italic;
+      color: var(--accent); transition: opacity 0.5s;
+    }
+    .whisper.out { opacity: 0; }
+
+    /* countdown */
+    .countdown { margin-top: 44px; }
+    .units { display: flex; justify-content: center; margin: 0; padding: 0; list-style: none; }
+    .units li { padding: 0 clamp(12px, 4.5vw, 32px); }
+    .units li + li { border-left: 1px solid var(--line); }
+    .unit-value {
+      display: block; font-family: var(--serif); font-weight: 400; line-height: 1;
+      font-size: clamp(2rem, 9.5vw, 3.4rem); font-variant-numeric: tabular-nums;
+    }
+    .unit-label { display: block; margin-top: 10px; font-size: 0.8rem; color: var(--muted); letter-spacing: 0.06em; }
+    .returned { margin: 0; font-family: var(--serif); font-size: 1.5rem; color: var(--accent); }
+    .meta { margin: 22px 0 0; font-size: 0.9rem; color: var(--muted); }
+    .meta strong { color: var(--text); font-weight: 600; }
+
+    /* dossier */
+    .dossier {
+      margin: 40px auto 0; max-width: 460px; text-align: left;
+      border: 1px solid var(--line); border-radius: 14px; background: var(--card);
+      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    }
+    .dossier div { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 13px 18px; }
+    .dossier div + div { border-top: 1px solid var(--line); }
+    .dossier dt { color: var(--muted); font-size: 0.9rem; }
+    .dossier dd { margin: 0; font-weight: 600; text-align: right; overflow-wrap: anywhere; }
+    .redact {
+      font: inherit; font-weight: 600; padding: 0 10px; border: 0; border-radius: 4px; cursor: pointer;
+      background: var(--text); color: transparent; transition: background 0.35s, color 0.35s;
+    }
+    .redact[aria-pressed="true"] { background: transparent; color: var(--text); cursor: default; }
+
+    /* actions */
+    .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 28px; }
+    .btn {
+      font: inherit; font-size: 0.95rem; padding: 11px 20px; border-radius: 999px; cursor: pointer;
+      border: 1px solid var(--line); background: var(--card); color: var(--text);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn:hover { border-color: var(--accent); color: var(--accent); }
+    .btn.primary { border-color: var(--accent); color: var(--accent); }
+
+    /* contact */
+    .contact {
+      margin: 28px auto 0; max-width: 460px; padding: 20px 18px; text-align: left;
+      border: 1px solid var(--line); border-radius: 14px; background: var(--card);
+      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    }
+    .contact h2 { margin: 0 0 4px; font-family: var(--serif); font-weight: 500; font-size: 1.35rem; }
+    .contact-note { margin: 0 0 8px; font-size: 0.9rem; color: var(--muted); }
+    .contact label { display: block; margin: 12px 0 6px; font-size: 0.9rem; color: var(--muted); }
+    .contact input[type="text"], .contact input[type="email"], .contact textarea {
+      width: 100%; padding: 11px 14px; font: inherit; color: var(--text);
+      background: transparent; border: 1px solid var(--line); border-radius: 10px;
+    }
+    .contact textarea { resize: vertical; min-height: 110px; }
+    .contact input:focus, .contact textarea:focus { outline: none; border-color: var(--accent); }
+    .contact input.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+    .contact .btn { margin-top: 16px; }
+    .contact .btn:disabled { opacity: 0.6; cursor: wait; }
+    .form-status { min-height: 1.5em; margin: 12px 0 0; font-size: 0.9rem; }
+    .form-status.ok { color: var(--accent); }
+    .form-status.err { color: #b3261e; }
+    :root[data-theme="dark"] .form-status.err { color: #ff8f85; }
+    .alt { margin: 6px 0 0; font-size: 0.9rem; color: var(--muted); }
+    .alt a { color: var(--accent); }
+
+    footer { padding: 0 24px 28px; text-align: center; font-size: 0.85rem; color: var(--muted); }
+
+    [hidden] { display: none !important; }
+
+    @keyframes rise { from { opacity: 0; transform: scale(0.7); } to { opacity: 1; transform: scale(1); } }
+    @keyframes breathe { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.06); opacity: 0.8; } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .corona, .corona::after { animation: none; }
+      .moon, .ring-fg, .whisper, .redact { transition: none; }
+    }
+    @media (max-width: 420px) {
+      header { padding: 16px; }
+      main { padding-left: 16px; padding-right: 16px; }
+      .units li { padding: 0 10px; }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+
+  <header>
+    <div class="brand"><span class="mark">Y</span><span>MNM YOUNUS</span></div>
+    <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg>
+    </button>
+  </header>
+
+  <main>
+    <div class="stage" aria-hidden="true">
+      <div class="corona"></div>
+      <svg class="ring" viewBox="0 0 200 200">
+        <circle class="ring-bg" cx="100" cy="100" r="94" pathLength="100"/>
+        <circle class="ring-fg" id="ring" cx="100" cy="100" r="94" pathLength="100"/>
+      </svg>
+      <div class="sun"></div>
+      <div class="moon"></div>
+    </div>
+
+    <h1>Temporarily suspended</h1>
+    <p class="lead">This website has been suspended by MNM YOUNUS due to studies until January 2027.</p>
+    <p class="note">All pages, including the main page and every sub-page, will stay offline during this period. Thank you for your understanding.</p>
+    <p class="whisper" id="whisper">Studying quietly.</p>
+
+    <section class="countdown" aria-label="Time until the website returns">
+      <ul class="units" id="units" role="timer" aria-live="off">
+        <li><span class="unit-value" id="days">--</span><span class="unit-label">days</span></li>
+        <li><span class="unit-value" id="hours">--</span><span class="unit-label">hours</span></li>
+        <li><span class="unit-value" id="minutes">--</span><span class="unit-label">minutes</span></li>
+        <li><span class="unit-value" id="seconds">--</span><span class="unit-label">seconds</span></li>
+      </ul>
+      <p class="returned" id="returned" hidden>The suspension has ended. Please check back soon.</p>
+      <p class="meta"><strong id="pct">0%</strong> of the break completed &middot; returns <span id="return-date">January 2027</span></p>
+    </section>
+
+    <dl class="dossier">
+      <div><dt>Name</dt><dd>MNM YOUNUS</dd></div>
+      <div><dt>Location</dt><dd>Unknown</dd></div>
+      <div><dt>Status</dt><dd>Studying</dd></div>
+      <div><dt>Contact</dt><dd><button class="redact" id="redact" type="button" aria-pressed="false">Use the form below</button></dd></div>
+      <div id="requested" hidden><dt>Requested page</dt><dd id="requested-path"></dd></div>
+    </dl>
+
+    <div class="actions">
+      <button class="btn primary" id="cal" type="button">Add return date to calendar</button>
+      <button class="btn" id="share" type="button">Share</button>
+      <button class="btn" id="open-contact" type="button" aria-expanded="false" aria-controls="contact">Contact</button>
+    </div>
+
+    <section class="contact" id="contact" hidden aria-labelledby="contact-title">
+      <h2 id="contact-title">Send a message</h2>
+      <p class="contact-note">Replies may take a little longer while studies are in progress.</p>
+      <form id="form">
+        <label for="f-name">Name</label>
+        <input id="f-name" name="name" type="text" autocomplete="name" maxlength="80" required>
+
+        <label for="f-email">Email</label>
+        <input id="f-email" name="email" type="email" autocomplete="email" maxlength="120" required>
+
+        <label for="f-msg">Message</label>
+        <textarea id="f-msg" name="message" rows="5" maxlength="2000" required></textarea>
+
+        <!-- spam trap: real visitors never see or fill this -->
+        <input class="hp" id="f-honey" name="_honey" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <button class="btn primary" id="send" type="submit">Send message</button>
+        <p class="form-status" id="status" role="status"></p>
+      </form>
+      <p class="alt">Prefer email? <a id="mail" href="#">Write to me directly</a></p>
+    </section>
+  </main>
+
+  <footer>&copy; <span id="year">2026</span> MNM YOUNUS &middot; Location unknown</footer>
+
+  <script>
+    (function () {
+      "use strict";
+
+      /* ---------- SETTINGS ---------- */
+      var RETURN_DATE = new Date("2027-01-01T00:00:00"); // when the site returns (visitor's local time)
+      var START_DATE  = new Date("2026-10-23T00:00:00"); // when the break began (drives the progress ring)
+      var CONTACT_EMAIL = "mnmyounus@proton.me"; // direct "Write to me" link (replace with the real inbox)
+      var FORM_ID = "772a19923e89788fb2c6d566c0e08bbe";       // FormSubmit endpoint: the email, or the random alias FormSubmit emails you after activation (recommended, hides the address)
+      var WHISPERS = ["Studying quietly.", "Some things are worth the wait.", "Building in silence.", "Returning January 2027."];
+      /* ------------------------------ */
+
+      var root = document.documentElement;
+      var $ = function (id) { return document.getElementById(id); };
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var pad = function (n) { return n < 10 ? "0" + n : String(n); };
+
+      /* Countdown + progress */
+      var timer = null;
+      function tick() {
+        var now = Date.now();
+        var diff = RETURN_DATE.getTime() - now;
+        var span = RETURN_DATE.getTime() - START_DATE.getTime();
+        var pct = Math.max(0, Math.min(1, (now - START_DATE.getTime()) / span));
+        $("pct").textContent = Math.round(pct * 100) + "%";
+        $("ring").style.strokeDashoffset = String(100 - pct * 100);
+        root.style.setProperty("--rev", pct.toFixed(4));
+
+        if (diff <= 0) {
+          $("units").hidden = true;
+          $("returned").hidden = false;
+          if (timer) { clearInterval(timer); }
+          return;
+        }
+        var total = Math.floor(diff / 1000);
+        $("days").textContent = Math.floor(total / 86400);
+        $("hours").textContent = pad(Math.floor((total % 86400) / 3600));
+        $("minutes").textContent = pad(Math.floor((total % 3600) / 60));
+        $("seconds").textContent = pad(total % 60);
+      }
+      tick();
+      timer = setInterval(tick, 1000);
+
+      try {
+        $("return-date").textContent = new Intl.DateTimeFormat(undefined, { dateStyle: "long" }).format(RETURN_DATE);
+      } catch (e) {}
+      $("year").textContent = new Date().getFullYear();
+
+      /* Requested sub-page */
+      var path = window.location.pathname;
+      if (path !== "/" && path !== "/index.html") {
+        $("requested-path").textContent = path;
+        $("requested").hidden = false;
+      }
+
+      /* Redacted contact: tap to reveal */
+      $("redact").addEventListener("click", function () {
+        this.setAttribute("aria-pressed", "true");
+      });
+
+      /* Rotating whisper */
+      if (!reduce) {
+        var wi = 0, wEl = $("whisper");
+        setInterval(function () {
+          wEl.classList.add("out");
+          setTimeout(function () {
+            wi = (wi + 1) % WHISPERS.length;
+            wEl.textContent = WHISPERS[wi];
+            wEl.classList.remove("out");
+          }, 500);
+        }, 4500);
+      }
+
+      /* Theme toggle */
+      $("theme").addEventListener("click", function () {
+        var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        root.setAttribute("data-theme", next);
+        try { localStorage.setItem("theme", next); } catch (e) {}
+        readStar();
+        if (reduce) { draw(); }
+      });
+
+      /* Eclipse parallax */
+      if (!reduce) {
+        window.addEventListener("pointermove", function (e) {
+          root.style.setProperty("--px", ((e.clientX / window.innerWidth - 0.5) * 2).toFixed(3));
+          root.style.setProperty("--py", ((e.clientY / window.innerHeight - 0.5) * 2).toFixed(3));
+        }, { passive: true });
+      }
+
+      /* Add return date to calendar (.ics download) */
+      $("cal").addEventListener("click", function () {
+        var d = RETURN_DATE, n = new Date(d.getTime() + 86400000);
+        var ymd = function (x) { return x.getFullYear() + pad(x.getMonth() + 1) + pad(x.getDate()); };
+        var stamp = new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+        var ics = [
+          "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//MNM YOUNUS//Return//EN", "BEGIN:VEVENT",
+          "UID:return-" + ymd(d) + "@mnmyounus.github.io", "DTSTAMP:" + stamp,
+          "DTSTART;VALUE=DATE:" + ymd(d), "DTEND;VALUE=DATE:" + ymd(n),
+          "SUMMARY:MNM YOUNUS website returns",
+          "DESCRIPTION:The suspension ends. Visit https://mnmyounus.github.io/",
+          "END:VEVENT", "END:VCALENDAR"
+        ].join("\r\n");
+        var url = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
+        var a = document.createElement("a");
+        a.href = url; a.download = "mnmyounus-return.ics";
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+      });
+
+      /* Share */
+      $("share").addEventListener("click", function () {
+        var btn = this, label = btn.textContent, url = window.location.origin + "/";
+        function note(m) { btn.textContent = m; setTimeout(function () { btn.textContent = label; }, 1800); }
+        if (navigator.share) {
+          navigator.share({ title: document.title, text: "This website is suspended until January 2027.", url: url }).catch(function () {});
+        } else if (navigator.clipboard) {
+          navigator.clipboard.writeText(url).then(function () { note("Link copied"); }, function () { note("Copy failed"); });
+        } else {
+          note("Copy the address bar");
+        }
+      });
+
+      /* Contact: form (FormSubmit) + direct email */
+      $("mail").href = "mailto:" + CONTACT_EMAIL + "?subject=" + encodeURIComponent("Message for MNM YOUNUS");
+
+      var panel = $("contact"), openBtn = $("open-contact");
+      openBtn.addEventListener("click", function () {
+        var show = panel.hidden;
+        panel.hidden = !show;
+        openBtn.setAttribute("aria-expanded", String(show));
+        if (show) {
+          panel.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
+          $("f-name").focus({ preventScroll: true });
+        }
+      });
+
+      var form = $("form"), statusEl = $("status"), sendBtn = $("send");
+      function say(msg, ok) {
+        statusEl.textContent = msg;
+        statusEl.className = "form-status " + (ok ? "ok" : "err");
+      }
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if ($("f-honey").value) { return; } // bot caught by the spam trap
+        if (FORM_ID.indexOf("your-email") === 0) {
+          say("The contact form is not set up yet. Please try again later.", false);
+          return;
+        }
+        sendBtn.disabled = true;
+        say("Sending\u2026", true);
+        fetch("https://formsubmit.co/ajax/" + FORM_ID, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify({
+            name: $("f-name").value,
+            email: $("f-email").value,
+            message: $("f-msg").value,
+            _subject: "New message from the suspended site",
+            _template: "table",
+            _honey: ""
+          })
+        }).then(function (r) { return r.json(); }).then(function (j) {
+          if (j && (j.success === true || j.success === "true")) {
+            form.reset();
+            say("Message sent. Thank you.", true);
+          } else {
+            throw new Error("rejected");
+          }
+        }).catch(function () {
+          say("Could not send right now. Please use the email link below.", false);
+        }).then(function () { sendBtn.disabled = false; });
+      });
+
+      /* Starfield */
+      var cv = $("stars"), cx = cv.getContext("2d"), stars = [], W = 0, H = 0, dpr = 1, starCol = "#fff";
+      function readStar() { starCol = getComputedStyle(root).getPropertyValue("--star").trim() || "#fff"; }
+      function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        W = window.innerWidth; H = window.innerHeight;
+        cv.width = W * dpr; cv.height = H * dpr;
+        cv.style.width = W + "px"; cv.style.height = H + "px";
+        var count = Math.round((W * H) / 13000);
+        stars = [];
+        for (var i = 0; i < count; i++) {
+          stars.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.2 + 0.3, p: Math.random() * 6.28, s: Math.random() * 0.025 + 0.006 });
+        }
+      }
+      function draw() {
+        cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        cx.clearRect(0, 0, W, H);
+        cx.fillStyle = starCol;
+        for (var i = 0; i < stars.length; i++) {
+          var s = stars[i];
+          if (!reduce) { s.p += s.s; }
+          cx.globalAlpha = 0.25 + 0.75 * Math.abs(Math.sin(s.p));
+          cx.beginPath(); cx.arc(s.x, s.y, s.r, 0, 6.2832); cx.fill();
+        }
+        cx.globalAlpha = 1;
+        if (!reduce) { requestAnimationFrame(draw); }
+      }
+      readStar(); resize(); draw();
+      window.addEventListener("resize", function () { resize(); if (reduce) { draw(); } });
+
+      /* A small message for the curious */
+      if (window.console && console.log) {
+        console.log("%cMNM YOUNUS%c  location: unknown. Back in January 2027.", "font-weight:bold", "");
+      }
+    })();
+  </script>
+</body>
+</html>
